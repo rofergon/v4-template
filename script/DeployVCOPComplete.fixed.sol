@@ -2,9 +2,10 @@
 pragma solidity ^0.8.24;
 
 // Para ejecutar este script sin verificacion de Etherscan:
-// forge script script/DeployVCOPComplete.s.sol:DeployVCOPComplete --via-ir --broadcast --rpc-url https://sepolia.base.org --no-verify
+// forge script script/DeployVCOPComplete.fixed.sol:DeployVCOPComplete --via-ir --broadcast --fork-url https://sepolia.base.org
 
-import {Script, console} from "forge-std/Script.sol";
+import {Script} from "forge-std/Script.sol";
+import {console} from "forge-std/console.sol"; // Import console, not console2
 import {IPoolManager} from "v4-core/src/interfaces/IPoolManager.sol";
 import {Currency} from "v4-core/src/types/Currency.sol";
 import {PoolKey} from "v4-core/src/types/PoolKey.sol";
@@ -21,6 +22,7 @@ import {IHooks} from "v4-core/src/interfaces/IHooks.sol";
 
 import {VCOPRebased} from "../src/VCOPRebased.sol";
 import {VCOPOracle} from "../src/VCOPOracle.sol";
+import {VCOPPriceCalculator} from "../src/VCOPPriceCalculator.sol";
 import {DeployVCOPRebaseHook} from "./DeployVCOPRebaseHook.s.sol";
 import {DeployMockUSDC} from "./DeployMockUSDC.s.sol";
 
@@ -30,7 +32,8 @@ import {DeployMockUSDC} from "./DeployMockUSDC.s.sol";
  * 1. Desplegar USDC Simulado
  * 2. Desplegar VCOP y Oracle
  * 3. Desplegar Hook (usando HookMiner)
- * 4. Crear pool y anadir liquidez
+ * 4. Desplegar el calculador de precios
+ * 5. Crear pool y anadir liquidez
  */
 contract DeployVCOPComplete is Script {
     using CurrencyLibrary for Currency;
@@ -49,9 +52,12 @@ contract DeployVCOPComplete is Script {
     // La relacion 1:4200 significa 4200 VCOP = 1 USDC
     uint160 startingPrice;
     
-    // Configuracion para la posicion de liquidez inicial
-    uint256 vcopLiquidity = 42_000_000 * 1e6; // 42 millones de VCOP (con 6 decimales)
-    uint256 stablecoinLiquidity = 10_000 * 1e6; // 10,000 USDC (equivalente a 42M VCOP a tasa 1:4200)
+    // Configuración para la posición de liquidez inicial (ACTUALIZADA)
+    // 100,000 USDC con 6 decimales
+    uint256 stablecoinLiquidity = 100_000 * 1e6; 
+    
+    // Mantener proporción 4200:1 -> 420,000,000 VCOP
+    uint256 vcopLiquidity = 420_000_000 * 1e6; 
     
     // Usar ticks mas amplios para acomodar la relacion 1:4200
     int24 tickLower;
@@ -70,11 +76,12 @@ contract DeployVCOPComplete is Script {
         address positionManagerAddress = vm.envAddress("POSITION_MANAGER_ADDRESS");
         
         // Verificar la red y saldos
-        console.log("Verificando red y saldos...");
-        console.log("Direccion del desplegador:", deployerAddress);
+        console.logString("Verificando red y saldos...");
+        console.logString("Direccion del desplegador:"); 
+        console.logAddress(deployerAddress);
         
         // === PASO 1: Desplegar USDC simulado ===
-        console.log("=== PASO 1: Desplegando USDC Simulado ===");
+        console.logString("=== PASO 1: Desplegando USDC Simulado ===");
         
         // Desplegar el USDC simulado
         DeployMockUSDC usdcDeployer = new DeployMockUSDC();
@@ -83,8 +90,10 @@ contract DeployVCOPComplete is Script {
         // Verificar el despliegue
         IERC20 usdc = IERC20(usdcAddress);
         uint256 usdcBalance = usdc.balanceOf(deployerAddress);
-        console.log("Direccion de USDC simulado:", usdcAddress);
-        console.log("Saldo USDC del desplegador:", usdcBalance);
+        console.logString("Direccion de USDC simulado:"); 
+        console.logAddress(usdcAddress);
+        console.logString("Saldo USDC del desplegador:"); 
+        console.logUint(usdcBalance);
         
         // Comprobar si hay suficiente USDC antes de empezar
         require(usdcBalance >= stablecoinLiquidity, "Insuficiente USDC para agregar liquidez.");
@@ -93,11 +102,11 @@ contract DeployVCOPComplete is Script {
         IPoolManager poolManager = IPoolManager(poolManagerAddress);
         PositionManager positionManager = PositionManager(payable(positionManagerAddress));
         
-        console.log("=== PASO 2: Desplegando VCOP y Oracle ===");
+        console.logString("=== PASO 2: Desplegando VCOP y Oracle ===");
         vm.startBroadcast(deployerPrivateKey);
         
-        // Despliegue inicial de VCOP con un suministro de 100,000,000 tokens
-        VCOPRebased vcop = new VCOPRebased(100_000_000 * 1e6); // 100M con 6 decimales
+        // Despliegue inicial de VCOP con un suministro de 1,000,000,000 tokens (ACTUALIZADO)
+        VCOPRebased vcop = new VCOPRebased(1_000_000_000 * 1e6); // 1000M con 6 decimales
         
         // Despliegue del oraculo con tasa inicial de 4200 COP = 1 USD
         VCOPOracle oracle = new VCOPOracle(
@@ -107,12 +116,17 @@ contract DeployVCOPComplete is Script {
             usdcAddress,
             lpFee,
             tickSpacing,
-            address(0) // Hook address not available yet
+            address(0)
         );
         
-        console.log("VCOP desplegado en:", address(vcop));
-        console.log("Oracle desplegado en:", address(oracle));
-        console.log("Tasa inicial USD/COP:", initialUsdToCopRate / 1e6);
+        console.logString("VCOP desplegado en:"); 
+        console.logAddress(address(vcop));
+        console.logString("Oracle desplegado en:"); 
+        console.logAddress(address(oracle));
+        console.logString("Tasa inicial USD/COP:");
+        console.logUint(initialUsdToCopRate / 1e6);
+        console.logString("Suministro inicial de VCOP:");
+        console.logUint(1_000_000_000);
         
         vm.stopBroadcast();
         
@@ -121,7 +135,7 @@ contract DeployVCOPComplete is Script {
         vm.setEnv("ORACLE_ADDRESS", vm.toString(address(oracle)));
         vm.setEnv("USDC_ADDRESS", vm.toString(usdcAddress));
         
-        console.log("=== PASO 3: Desplegando Hook con HookMiner ===");
+        console.logString("=== PASO 3: Desplegando Hook con HookMiner ===");
         
         // Ejecutar el script para desplegar el hook
         DeployVCOPRebaseHook hookDeployer = new DeployVCOPRebaseHook();
@@ -131,7 +145,47 @@ contract DeployVCOPComplete is Script {
         address hookAddress = vm.envOr("HOOK_ADDRESS", address(0));
         require(hookAddress != address(0), "Hook address not set");
         
-        console.log("=== PASO 4: Creando Pool y anadiendo liquidez ===");
+        console.logString("=== PASO 4: Desplegando Calculador de Precios ===");
+        vm.startBroadcast(deployerPrivateKey);
+        
+        // Desplegar el calculador de precios
+        VCOPPriceCalculator priceCalculator = new VCOPPriceCalculator(
+            poolManagerAddress,
+            address(vcop),
+            usdcAddress,
+            lpFee,
+            tickSpacing,
+            hookAddress,
+            initialUsdToCopRate
+        );
+        
+        console.logString("Calculador de precios desplegado en:");
+        console.logAddress(address(priceCalculator));
+        
+        // Configurar el calculador en el oráculo
+        oracle.setPriceCalculator(address(priceCalculator));
+        console.logString("Calculador de precios configurado en el oraculo");
+        
+        // Verificar paridad 1:1 entre VCOP y COP
+        bool isAtParity = oracle.isVcopAtParity();
+        console.logString("VCOP esta en paridad 1:1 con COP?");
+        console.logBool(isAtParity);
+        
+        vm.stopBroadcast();
+        
+        // Guardar dirección del calculador de precios para futuro uso
+        vm.setEnv("PRICE_CALCULATOR_ADDRESS", vm.toString(address(priceCalculator)));
+        
+        console.logString("=== PASO 5: Creando Pool y anadiendo liquidez ===");
+        console.logString("Liquidez USDC a agregar:"); 
+        console.logUint(stablecoinLiquidity / 1e6); 
+        console.logString("USDC");
+        console.logString("Liquidez VCOP a agregar:"); 
+        console.logUint(vcopLiquidity / 1e6); 
+        console.logString("VCOP");
+        console.logString("Ratio VCOP/USDC:"); 
+        console.logUint(vcopLiquidity / stablecoinLiquidity);
+        
         vm.startBroadcast(deployerPrivateKey);
         
         // Crear Currency para VCOP y USDC
@@ -178,10 +232,14 @@ contract DeployVCOPComplete is Script {
         tickLower = (tickLower / tickSpacing) * tickSpacing;
         tickUpper = (tickUpper / tickSpacing) * tickSpacing;
         
-        console.log("VCOP es token0:", vcopIsToken0);
-        console.log("Precio inicial:", uint256(startingPrice));
-        console.log("Tick inferior:", tickLower);
-        console.log("Tick superior:", tickUpper);
+        console.logString("VCOP es token0:");
+        console.logBool(vcopIsToken0);
+        console.logString("Precio inicial:");
+        console.logUint(uint256(startingPrice));
+        console.logString("Tick inferior:");
+        console.logInt(tickLower);
+        console.logString("Tick superior:");
+        console.logInt(tickUpper);
         
         // Crear la estructura PoolKey
         PoolKey memory poolKey = PoolKey({
@@ -198,8 +256,10 @@ contract DeployVCOPComplete is Script {
         uint256 amount0Max = vcopIsToken0 ? vcopLiquidity : stablecoinLiquidity;
         uint256 amount1Max = vcopIsToken0 ? stablecoinLiquidity : vcopLiquidity;
         
-        console.log("Cantidad maxima token0:", amount0Max);
-        console.log("Cantidad maxima token1:", amount1Max);
+        console.logString("Cantidad maxima token0:");
+        console.logUint(amount0Max);
+        console.logString("Cantidad maxima token1:");
+        console.logUint(amount1Max);
         
         // Calcular la liquidez
         uint128 liquidity = LiquidityAmounts.getLiquidityForAmounts(
@@ -210,7 +270,8 @@ contract DeployVCOPComplete is Script {
             amount1Max
         );
         
-        console.log("Liquidez calculada:", uint256(liquidity));
+        console.logString("Liquidez calculada:");
+        console.logUint(uint256(liquidity));
         
         // Preparar parametros de multicall
         bytes[] memory params = new bytes[](2);
@@ -252,10 +313,36 @@ contract DeployVCOPComplete is Script {
         uint256 vcopBalanceDeployer = vcop.balanceOf(deployerAddress);
         uint256 usdcBalanceDeployer = usdc.balanceOf(deployerAddress);
         
-        console.log("Balance final VCOP del desplegador:", vcopBalanceDeployer);
-        console.log("Balance final USDC del desplegador:", usdcBalanceDeployer);
+        console.logString("Balance final VCOP del desplegador:");
+        console.logUint(vcopBalanceDeployer);
+        console.logString("Balance final USDC del desplegador:");
+        console.logUint(usdcBalanceDeployer);
         
-        console.log("Pool creado y liquidez inicial anadida con exito");
+        console.logString("Pool creado y liquidez inicial anadida con exito");
+        
+        // === PASO 6: Actualizar el hook con la direccion del oracle
+        // El hook necesita el oráculo para los rebalanceos
+        console.logString("=== PASO 6: Verificando precios del pool creado ===");
+        
+        // Verificar los precios usando el calculador de manera segura
+        try priceCalculator.calculateAllPrices() returns (
+            uint256 vcopToUsdPrice, 
+            uint256 vcopToCopPrice, 
+            int24 currentTick, 
+            bool parityStatus
+        ) {
+            console.logString("Precio VCOP/USDC calculado:");
+            console.logUint(vcopToUsdPrice / 1e6);
+            console.logString("Precio VCOP/COP calculado:");
+            console.logUint(vcopToCopPrice / 1e6);
+            console.logString("Tick actual del pool:");
+            console.logInt(currentTick);
+            console.logString("VCOP en paridad 1:1 con COP?");
+            console.logBool(parityStatus);
+        } catch {
+            console.logString("No se pudieron calcular todos los precios. El pool necesita tiempo para inicializarse completamente.");
+            console.logString("Esto es normal justo despues de crear el pool. Intente verificar los precios mas tarde.");
+        }
         
         vm.stopBroadcast();
     }
