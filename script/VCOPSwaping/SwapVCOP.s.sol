@@ -17,15 +17,15 @@ contract SwapVCOPScript is Script {
     uint160 public constant MAX_PRICE_LIMIT = TickMath.MAX_SQRT_PRICE - 1;
 
     // VCOP Token address - ACTUALIZADO
-    address public constant VCOP_ADDRESS = 0x736830eBa7754e5b05242eca783Fd4b6BA6d77Ad;
+    address public constant VCOP_ADDRESS = 0x9Fcf266213854A7797A8a63183E180FeaD27fFc3;
     // USDC Token address - ACTUALIZADO
-    address public constant USDC_ADDRESS = 0xDcD12D26aE3E3e1985F8cAeC1548B29bd649567E;
-    // VCOP Rebase Hook - ACTUALIZADO
-    address public constant HOOK_ADDRESS = 0x2499b757519Bb317E80d9006761e4eaA7A468040;
+    address public constant USDC_ADDRESS = 0xa255BDcDa0673Fe52e26dB4c5016434a7f54C2E8;
+    // VCOP Collateral Hook - ACTUALIZADO
+    address public constant HOOK_ADDRESS = 0x8e8bF46E3dF822aA10dE530C022037F4FC3144c0;
     // Price Calculator - ACTUALIZADO
-    address public constant PRICE_CALCULATOR_ADDRESS = 0xb7D39079EEFeB754947970B7F86d4c1a18e4b1D9;
+    address public constant PRICE_CALCULATOR_ADDRESS = 0x09E23D6828a2e23B0C77C2c7Ba91182b5A28Ad47;
     // Oracle - ACTUALIZADO
-    address public constant ORACLE_ADDRESS = 0x00cc0A1F3E618dFb177C701781Db39aFd53Ce7aF;
+    address public constant ORACLE_ADDRESS = 0x41a2c54F5510303b5eBDf43d47dC9a7812ea0886;
     
     // Base Sepolia deployed contracts
     address public constant POOL_MANAGER = 0x05E73354cFDd6745C338b50BcFDfA3Aa6fA03408;
@@ -57,6 +57,7 @@ contract SwapVCOPScript is Script {
         console.log("Hook Address:", HOOK_ADDRESS);
         
         // Create pool key
+        // VCOP es token0 y USDC es token1 según el log de despliegue
         PoolKey memory pool = PoolKey({
             currency0: Currency.wrap(VCOP_ADDRESS),
             currency1: Currency.wrap(USDC_ADDRESS),
@@ -80,6 +81,8 @@ contract SwapVCOPScript is Script {
         // - Si compramos VCOP: USDC (token1) a VCOP (token0) -> zeroForOne = false
         // - Si vendemos VCOP: VCOP (token0) a USDC (token1) -> zeroForOne = true
         bool zeroForOne = !comprarVCOP;
+        
+        console.log("ZeroForOne:", zeroForOne, "(true = vender VCOP por USDC, false = comprar VCOP con USDC)");
         
         // Aprobar tokens según dirección
         if (comprarVCOP) {
