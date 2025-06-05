@@ -1,0 +1,6507 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "VCOP Protocol API",
+    "version": "2.0.0",
+    "description": "Advanced DeFi Lending Protocol with Hybrid Architecture",
+    "termsOfService": "https://vcop.finance/terms",
+    "contact": {
+      "name": "VCOP Team",
+      "url": "https://vcop.finance",
+      "email": "dev@vcop.finance"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.vcop.finance/v2",
+      "description": "Production server"
+    },
+    {
+      "url": "https://testnet-api.vcop.finance/v2",
+      "description": "Testnet server"
+    }
+  ],
+  "paths": {
+    "/contracts/vcopcollateralized/allowance": {
+      "get": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "allowance - VCOPCollateralized",
+        "description": "Execute allowance function on VCOPCollateralized contract",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "owner parameter of type address"
+          },
+          {
+            "name": "spender",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "spender parameter of type address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/approve": {
+      "post": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "approve - VCOPCollateralized",
+        "description": "Execute approve function on VCOPCollateralized contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "spender": {
+                    "type": "string",
+                    "description": "spender parameter of type address"
+                  },
+                  "value": {
+                    "type": "string",
+                    "description": "value parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "spender",
+                  "value"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/balanceOf": {
+      "get": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "balanceOf - VCOPCollateralized",
+        "description": "Execute balanceOf function on VCOPCollateralized contract",
+        "parameters": [
+          {
+            "name": "account",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "account parameter of type address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/burn": {
+      "post": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "burn - VCOPCollateralized",
+        "description": "Execute burn function on VCOPCollateralized contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "from parameter of type address"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "amount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "from",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/burners": {
+      "get": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "burners - VCOPCollateralized",
+        "description": "Execute burners function on VCOPCollateralized contract",
+        "parameters": [
+          {
+            "name": "",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": " parameter of type address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/collateralManager": {
+      "get": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "collateralManager - VCOPCollateralized",
+        "description": "Execute collateralManager function on VCOPCollateralized contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/mint": {
+      "post": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "mint - VCOPCollateralized",
+        "description": "Execute mint function on VCOPCollateralized contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "to": {
+                    "type": "string",
+                    "description": "to parameter of type address"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "amount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "to",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/minters": {
+      "get": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "minters - VCOPCollateralized",
+        "description": "Execute minters function on VCOPCollateralized contract",
+        "parameters": [
+          {
+            "name": "",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": " parameter of type address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/name": {
+      "get": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "name - VCOPCollateralized",
+        "description": "Execute name function on VCOPCollateralized contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/owner": {
+      "get": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "owner - VCOPCollateralized",
+        "description": "Execute owner function on VCOPCollateralized contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/renounceOwnership": {
+      "post": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "renounceOwnership - VCOPCollateralized",
+        "description": "Execute renounceOwnership function on VCOPCollateralized contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/setBurner": {
+      "post": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "setBurner - VCOPCollateralized",
+        "description": "Execute setBurner function on VCOPCollateralized contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "account parameter of type address"
+                  },
+                  "status": {
+                    "type": "boolean",
+                    "description": "status parameter of type bool"
+                  }
+                },
+                "required": [
+                  "from",
+                  "account",
+                  "status"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/setCollateralManager": {
+      "post": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "setCollateralManager - VCOPCollateralized",
+        "description": "Execute setCollateralManager function on VCOPCollateralized contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "_manager": {
+                    "type": "string",
+                    "description": "_manager parameter of type address"
+                  }
+                },
+                "required": [
+                  "from",
+                  "_manager"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/setMinter": {
+      "post": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "setMinter - VCOPCollateralized",
+        "description": "Execute setMinter function on VCOPCollateralized contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "account": {
+                    "type": "string",
+                    "description": "account parameter of type address"
+                  },
+                  "status": {
+                    "type": "boolean",
+                    "description": "status parameter of type bool"
+                  }
+                },
+                "required": [
+                  "from",
+                  "account",
+                  "status"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/symbol": {
+      "get": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "symbol - VCOPCollateralized",
+        "description": "Execute symbol function on VCOPCollateralized contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/totalSupply": {
+      "get": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "totalSupply - VCOPCollateralized",
+        "description": "Execute totalSupply function on VCOPCollateralized contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/transfer": {
+      "post": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "transfer - VCOPCollateralized",
+        "description": "Execute transfer function on VCOPCollateralized contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "to": {
+                    "type": "string",
+                    "description": "to parameter of type address"
+                  },
+                  "value": {
+                    "type": "string",
+                    "description": "value parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "to",
+                  "value"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/transferFrom": {
+      "post": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "transferFrom - VCOPCollateralized",
+        "description": "Execute transferFrom function on VCOPCollateralized contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "from parameter of type address"
+                  },
+                  "to": {
+                    "type": "string",
+                    "description": "to parameter of type address"
+                  },
+                  "value": {
+                    "type": "string",
+                    "description": "value parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "from",
+                  "to",
+                  "value"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralized/transferOwnership": {
+      "post": {
+        "tags": [
+          "VCOPCollateralized"
+        ],
+        "summary": "transferOwnership - VCOPCollateralized",
+        "description": "Execute transferOwnership function on VCOPCollateralized contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "newOwner": {
+                    "type": "string",
+                    "description": "newOwner parameter of type address"
+                  }
+                },
+                "required": [
+                  "from",
+                  "newOwner"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/addCollateral": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "addCollateral - VCOPCollateralManager",
+        "description": "Execute addCollateral function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "positionId": {
+                    "type": "string",
+                    "description": "positionId parameter of type uint256"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "amount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "positionId",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/addPSMFunds": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "addPSMFunds - VCOPCollateralManager",
+        "description": "Execute addPSMFunds function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "collateralToken": {
+                    "type": "string",
+                    "description": "collateralToken parameter of type address"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "amount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "collateralToken",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/addPSMVcop": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "addPSMVcop - VCOPCollateralManager",
+        "description": "Execute addPSMVcop function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "collateralToken": {
+                    "type": "string",
+                    "description": "collateralToken parameter of type address"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "amount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "collateralToken",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/collateralList": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "collateralList - VCOPCollateralManager",
+        "description": "Execute collateralList function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": " parameter of type uint256"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/collaterals": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "collaterals - VCOPCollateralManager",
+        "description": "Execute collaterals function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": " parameter of type address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        },
+                        "ratio": {
+                          "type": "string"
+                        },
+                        "mintFee": {
+                          "type": "string"
+                        },
+                        "burnFee": {
+                          "type": "string"
+                        },
+                        "liquidationThreshold": {
+                          "type": "string"
+                        },
+                        "active": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/configureCollateral": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "configureCollateral - VCOPCollateralManager",
+        "description": "Execute configureCollateral function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "token": {
+                    "type": "string",
+                    "description": "token parameter of type address"
+                  },
+                  "ratio": {
+                    "type": "string",
+                    "description": "ratio parameter of type uint256"
+                  },
+                  "mintFee": {
+                    "type": "string",
+                    "description": "mintFee parameter of type uint256"
+                  },
+                  "burnFee": {
+                    "type": "string",
+                    "description": "burnFee parameter of type uint256"
+                  },
+                  "liquidationThreshold": {
+                    "type": "string",
+                    "description": "liquidationThreshold parameter of type uint256"
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "description": "active parameter of type bool"
+                  }
+                },
+                "required": [
+                  "from",
+                  "token",
+                  "ratio",
+                  "mintFee",
+                  "burnFee",
+                  "liquidationThreshold",
+                  "active"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/createPosition": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "createPosition - VCOPCollateralManager",
+        "description": "Execute createPosition function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "collateralToken": {
+                    "type": "string",
+                    "description": "collateralToken parameter of type address"
+                  },
+                  "collateralAmount": {
+                    "type": "string",
+                    "description": "collateralAmount parameter of type uint256"
+                  },
+                  "vcopToMint": {
+                    "type": "string",
+                    "description": "vcopToMint parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "collateralToken",
+                  "collateralAmount",
+                  "vcopToMint"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/feeCollector": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "feeCollector - VCOPCollateralManager",
+        "description": "Execute feeCollector function on VCOPCollateralManager contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/getCollateralAmountForValue": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "getCollateralAmountForValue - VCOPCollateralManager",
+        "description": "Execute getCollateralAmountForValue function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "collateralToken",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "collateralToken parameter of type address"
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "value parameter of type uint256"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/getCollateralValue": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "getCollateralValue - VCOPCollateralManager",
+        "description": "Execute getCollateralValue function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "collateralToken",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "collateralToken parameter of type address"
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "amount parameter of type uint256"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/getCurrentCollateralRatio": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "getCurrentCollateralRatio - VCOPCollateralManager",
+        "description": "Execute getCurrentCollateralRatio function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "user parameter of type address"
+          },
+          {
+            "name": "positionId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "positionId parameter of type uint256"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/getMaxVCOPforCollateral": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "getMaxVCOPforCollateral - VCOPCollateralManager",
+        "description": "Execute getMaxVCOPforCollateral function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "collateralToken",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "collateralToken parameter of type address"
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "amount parameter of type uint256"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/getMinCollateralForVCOP": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "getMinCollateralForVCOP - VCOPCollateralManager",
+        "description": "Execute getMinCollateralForVCOP function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "collateralToken",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "collateralToken parameter of type address"
+          },
+          {
+            "name": "vcopAmount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "vcopAmount parameter of type uint256"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/getPSMReserves": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "getPSMReserves - VCOPCollateralManager",
+        "description": "Execute getPSMReserves function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "collateralToken",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "collateralToken parameter of type address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "collateralAmount": {
+                          "type": "string"
+                        },
+                        "vcopAmount": {
+                          "type": "string"
+                        },
+                        "active": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/hasPSMReservesFor": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "hasPSMReservesFor - VCOPCollateralManager",
+        "description": "Execute hasPSMReservesFor function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "collateralToken",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "collateralToken parameter of type address"
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "amount parameter of type uint256"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/initializePSMVcop": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "initializePSMVcop - VCOPCollateralManager",
+        "description": "Execute initializePSMVcop function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "collateralToken": {
+                    "type": "string",
+                    "description": "collateralToken parameter of type address"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "amount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "collateralToken",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/lastPSMOperationTimestamp": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "lastPSMOperationTimestamp - VCOPCollateralManager",
+        "description": "Execute lastPSMOperationTimestamp function on VCOPCollateralManager contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/liquidatePosition": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "liquidatePosition - VCOPCollateralManager",
+        "description": "Execute liquidatePosition function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "user": {
+                    "type": "string",
+                    "description": "user parameter of type address"
+                  },
+                  "positionId": {
+                    "type": "string",
+                    "description": "positionId parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "user",
+                  "positionId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/mintPSMVcop": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "mintPSMVcop - VCOPCollateralManager",
+        "description": "Execute mintPSMVcop function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "to": {
+                    "type": "string",
+                    "description": "to parameter of type address"
+                  },
+                  "collateralToken": {
+                    "type": "string",
+                    "description": "collateralToken parameter of type address"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "amount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "to",
+                  "collateralToken",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/oracle": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "oracle - VCOPCollateralManager",
+        "description": "Execute oracle function on VCOPCollateralManager contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/owner": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "owner - VCOPCollateralManager",
+        "description": "Execute owner function on VCOPCollateralManager contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/positionCount": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "positionCount - VCOPCollateralManager",
+        "description": "Execute positionCount function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": " parameter of type address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/positions": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "positions - VCOPCollateralManager",
+        "description": "Execute positions function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": " parameter of type address"
+          },
+          {
+            "name": "",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": " parameter of type uint256"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "collateralToken": {
+                          "type": "string"
+                        },
+                        "collateralAmount": {
+                          "type": "string"
+                        },
+                        "vcopMinted": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/psmHookAddress": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "psmHookAddress - VCOPCollateralManager",
+        "description": "Execute psmHookAddress function on VCOPCollateralManager contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/psmReserves": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "psmReserves - VCOPCollateralManager",
+        "description": "Execute psmReserves function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": " parameter of type address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "collateralAmount": {
+                          "type": "string"
+                        },
+                        "vcopAmount": {
+                          "type": "string"
+                        },
+                        "active": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/registerPSMFunds": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "registerPSMFunds - VCOPCollateralManager",
+        "description": "Execute registerPSMFunds function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "collateralToken": {
+                    "type": "string",
+                    "description": "collateralToken parameter of type address"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "amount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "collateralToken",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/registerTokenIdentifier": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "registerTokenIdentifier - VCOPCollateralManager",
+        "description": "Execute registerTokenIdentifier function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "token": {
+                    "type": "string",
+                    "description": "token parameter of type address"
+                  },
+                  "identifier": {
+                    "type": "string",
+                    "description": "identifier parameter of type string"
+                  }
+                },
+                "required": [
+                  "from",
+                  "token",
+                  "identifier"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/removePSMFunds": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "removePSMFunds - VCOPCollateralManager",
+        "description": "Execute removePSMFunds function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "collateralToken": {
+                    "type": "string",
+                    "description": "collateralToken parameter of type address"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "amount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "collateralToken",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/renounceOwnership": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "renounceOwnership - VCOPCollateralManager",
+        "description": "Execute renounceOwnership function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/repayDebt": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "repayDebt - VCOPCollateralManager",
+        "description": "Execute repayDebt function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "positionId": {
+                    "type": "string",
+                    "description": "positionId parameter of type uint256"
+                  },
+                  "vcpAmount": {
+                    "type": "string",
+                    "description": "vcpAmount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "positionId",
+                  "vcpAmount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/setFeeCollector": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "setFeeCollector - VCOPCollateralManager",
+        "description": "Execute setFeeCollector function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "_collector": {
+                    "type": "string",
+                    "description": "_collector parameter of type address"
+                  }
+                },
+                "required": [
+                  "from",
+                  "_collector"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/setPSMHook": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "setPSMHook - VCOPCollateralManager",
+        "description": "Execute setPSMHook function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "_psmHook": {
+                    "type": "string",
+                    "description": "_psmHook parameter of type address"
+                  }
+                },
+                "required": [
+                  "from",
+                  "_psmHook"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/setPSMReserveStatus": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "setPSMReserveStatus - VCOPCollateralManager",
+        "description": "Execute setPSMReserveStatus function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "collateralToken": {
+                    "type": "string",
+                    "description": "collateralToken parameter of type address"
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "description": "active parameter of type bool"
+                  }
+                },
+                "required": [
+                  "from",
+                  "collateralToken",
+                  "active"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/tokenIdentifiers": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "tokenIdentifiers - VCOPCollateralManager",
+        "description": "Execute tokenIdentifiers function on VCOPCollateralManager contract",
+        "parameters": [
+          {
+            "name": "",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": " parameter of type address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/totalPSMSwapsCount": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "totalPSMSwapsCount - VCOPCollateralManager",
+        "description": "Execute totalPSMSwapsCount function on VCOPCollateralManager contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/transferOwnership": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "transferOwnership - VCOPCollateralManager",
+        "description": "Execute transferOwnership function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "newOwner": {
+                    "type": "string",
+                    "description": "newOwner parameter of type address"
+                  }
+                },
+                "required": [
+                  "from",
+                  "newOwner"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/transferPSMCollateral": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "transferPSMCollateral - VCOPCollateralManager",
+        "description": "Execute transferPSMCollateral function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "to": {
+                    "type": "string",
+                    "description": "to parameter of type address"
+                  },
+                  "collateralToken": {
+                    "type": "string",
+                    "description": "collateralToken parameter of type address"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "amount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "to",
+                  "collateralToken",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/vcop": {
+      "get": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "vcop - VCOPCollateralManager",
+        "description": "Execute vcop function on VCOPCollateralManager contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcopcollateralmanager/withdrawCollateral": {
+      "post": {
+        "tags": [
+          "VCOPCollateralManager"
+        ],
+        "summary": "withdrawCollateral - VCOPCollateralManager",
+        "description": "Execute withdrawCollateral function on VCOPCollateralManager contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "positionId": {
+                    "type": "string",
+                    "description": "positionId parameter of type uint256"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "description": "amount parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "positionId",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/fee": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "fee - VCOPOracle",
+        "description": "Execute fee function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/getPrice": {
+      "post": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "getPrice - VCOPOracle",
+        "description": "Execute getPrice function on VCOPOracle contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/getUsdToCopRate": {
+      "post": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "getUsdToCopRate - VCOPOracle",
+        "description": "Execute getUsdToCopRate function on VCOPOracle contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/getUsdToCopRateView": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "getUsdToCopRateView - VCOPOracle",
+        "description": "Execute getUsdToCopRateView function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/getVcopToCopRate": {
+      "post": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "getVcopToCopRate - VCOPOracle",
+        "description": "Execute getVcopToCopRate function on VCOPOracle contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/getVcopToCopRateView": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "getVcopToCopRateView - VCOPOracle",
+        "description": "Execute getVcopToCopRateView function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/getVcopToUsdPrice": {
+      "post": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "getVcopToUsdPrice - VCOPOracle",
+        "description": "Execute getVcopToUsdPrice function on VCOPOracle contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/getVcopToUsdPriceFromPool": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "getVcopToUsdPriceFromPool - VCOPOracle",
+        "description": "Execute getVcopToUsdPriceFromPool function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/hookAddress": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "hookAddress - VCOPOracle",
+        "description": "Execute hookAddress function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/isVCOPToken0": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "isVCOPToken0 - VCOPOracle",
+        "description": "Execute isVCOPToken0 function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/isVcopAtParity": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "isVcopAtParity - VCOPOracle",
+        "description": "Execute isVcopAtParity function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/owner": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "owner - VCOPOracle",
+        "description": "Execute owner function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/poolManager": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "poolManager - VCOPOracle",
+        "description": "Execute poolManager function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/priceCalculator": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "priceCalculator - VCOPOracle",
+        "description": "Execute priceCalculator function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/renounceOwnership": {
+      "post": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "renounceOwnership - VCOPOracle",
+        "description": "Execute renounceOwnership function on VCOPOracle contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/setPriceCalculator": {
+      "post": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "setPriceCalculator - VCOPOracle",
+        "description": "Execute setPriceCalculator function on VCOPOracle contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "_calculator": {
+                    "type": "string",
+                    "description": "_calculator parameter of type address"
+                  }
+                },
+                "required": [
+                  "from",
+                  "_calculator"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/setUsdToCopRate": {
+      "post": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "setUsdToCopRate - VCOPOracle",
+        "description": "Execute setUsdToCopRate function on VCOPOracle contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "newRate": {
+                    "type": "string",
+                    "description": "newRate parameter of type uint256"
+                  }
+                },
+                "required": [
+                  "from",
+                  "newRate"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/tickSpacing": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "tickSpacing - VCOPOracle",
+        "description": "Execute tickSpacing function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/transferOwnership": {
+      "post": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "transferOwnership - VCOPOracle",
+        "description": "Execute transferOwnership function on VCOPOracle contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  },
+                  "newOwner": {
+                    "type": "string",
+                    "description": "newOwner parameter of type address"
+                  }
+                },
+                "required": [
+                  "from",
+                  "newOwner"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/updateRatesFromPool": {
+      "post": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "updateRatesFromPool - VCOPOracle",
+        "description": "Execute updateRatesFromPool function on VCOPOracle contract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "description": "Sender address"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        },
+                        "output1": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/usdcAddress": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "usdcAddress - VCOPOracle",
+        "description": "Execute usdcAddress function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/contracts/vcoporacle/vcopAddress": {
+      "get": {
+        "tags": [
+          "VCOPOracle"
+        ],
+        "summary": "vcopAddress - VCOPOracle",
+        "description": "Execute vcopAddress function on VCOPOracle contract",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Transaction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "transactionHash": {
+                      "type": "string"
+                    },
+                    "gasUsed": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output0": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Transaction failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Health check",
+        "description": "Check API health status",
+        "responses": {
+          "200": {
+            "description": "API is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/positions/{userAddress}": {
+      "get": {
+        "tags": [
+          "Positions"
+        ],
+        "summary": "Get user positions",
+        "description": "Retrieve all positions for a user",
+        "parameters": [
+          {
+            "name": "userAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User's Ethereum address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User positions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Position"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/liquidations": {
+      "get": {
+        "tags": [
+          "Liquidations"
+        ],
+        "summary": "Get liquidation opportunities",
+        "description": "Retrieve current liquidation opportunities",
+        "parameters": [
+          {
+            "name": "minProfit",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Minimum profit threshold"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liquidation opportunities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LiquidationOpportunity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "integer"
+          }
+        }
+      },
+      "Position": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          },
+          "collateralToken": {
+            "type": "string"
+          },
+          "collateralAmount": {
+            "type": "string"
+          },
+          "vcopMinted": {
+            "type": "string"
+          },
+          "healthFactor": {
+            "type": "string"
+          },
+          "liquidationThreshold": {
+            "type": "string"
+          }
+        }
+      },
+      "LiquidationOpportunity": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "string"
+          },
+          "positionId": {
+            "type": "string"
+          },
+          "healthFactor": {
+            "type": "string"
+          },
+          "collateralValue": {
+            "type": "string"
+          },
+          "debtValue": {
+            "type": "string"
+          },
+          "expectedProfit": {
+            "type": "string"
+          },
+          "liquidationBonus": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      },
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

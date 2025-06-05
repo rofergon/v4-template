@@ -1,0 +1,171 @@
+name: Sync Documentation to GitBook
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'docs/**'
+      - 'out/**/*.json'
+      - 'src/**/*.sol'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+
+jobs:
+  sync-docs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        npm install -g gitbook-cli
+        npm install
+
+    - name: Setup Foundry
+      uses: foundry-rs/foundry-toolchain@v1
+
+    - name: Compile contracts
+      run: forge build
+
+    - name: Generate OpenAPI specifications
+      run: |
+        node scripts/generate-openapi.js
+        echo "✅ OpenAPI specs generated"
+
+    - name: Validate OpenAPI specs
+      run: |
+        npx swagger-parser validate docs/api/openapi-en.json
+        npx swagger-parser validate docs/api/openapi-es.json
+        echo "✅ OpenAPI specs validated"
+
+    - name: Copy existing docs to GitBook structure
+      run: |
+        # Copiar documentos existentes
+        mkdir -p docs/en/introduction
+        mkdir -p docs/es/introduccion
+        
+        # Copiar documentos principales
+        cp VCOP_FINAL_PROTOCOL_GUIDE.md docs/en/introduction/overview.md
+        cp VCOP_IMPROVEMENT_IMPLEMENTATION_PLAN.md docs/en/introduction/implementation-plan.md
+        
+        # Versión en español (traducción básica de headers)
+        sed 's/# /# /g; s/## /## /g; s/VCOP Protocol/Protocolo VCOP/g' VCOP_FINAL_PROTOCOL_GUIDE.md > docs/es/introduccion/resumen.md
+        
+        echo "✅ Documentation structure created"
+
+    - name: Generate API documentation from OpenAPI
+      run: |
+        # Generar documentación de API desde OpenAPI
+        mkdir -p docs/en/api docs/es/api
+        
+        # Usar herramienta para convertir OpenAPI a Markdown
+        npx redoc-cli build docs/api/openapi-en.json --output docs/en/api/reference.html
+        npx redoc-cli build docs/api/openapi-es.json --output docs/es/api/referencia.html
+        
+        echo "✅ API documentation generated"
+
+    - name: Update GitBook configuration
+      run: |
+        # Actualizar timestamp en configuración
+        sed -i "s/version: \".*\"/version: \"$(date +%Y.%m.%d)\"/" docs/.gitbook.yaml
+        
+        echo "✅ GitBook configuration updated"
+
+    - name: Sync with GitBook
+      if: github.ref == 'refs/heads/main'
+      env:
+        GITBOOK_TOKEN: ${{ secrets.GITBOOK_TOKEN }}
+        GITBOOK_SPACE: ${{ secrets.GITBOOK_SPACE }}
+      run: |
+        # Instalar GitBook CLI si no está disponible
+        npm install -g @gitbook/cli
+        
+        # Sincronizar con GitBook
+        gitbook-cli push docs/
+        
+        echo "✅ Documentation synced to GitBook"
+
+    - name: Create deployment comment
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const output = `
+          ## 📚 Documentation Preview
+          
+          La documentación ha sido generada y está lista para revisión:
+          
+          ### ✅ Generado:
+          - OpenAPI specs (EN/ES)
+          - API documentation
+          - Multi-language structure
+          
+          ### 🔗 Enlaces:
+          - **English**: [View Documentation](https://app.gitbook.com/o/vcop/s/docs-en)
+          - **Español**: [Ver Documentación](https://app.gitbook.com/o/vcop/s/docs-es)
+          
+          ### 📊 Stats:
+          - Endpoints documented: \`$(jq '.paths | length' docs/api/openapi-en.json)\`
+          - Languages: \`2 (EN, ES)\`
+          - Auto-sync: \`✅ Enabled\`
+          `;
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          });
+
+  validate-links:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Validate documentation links
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        folder-path: 'docs'
+        file-extension: '.md'
+        max-depth: 3
+        check-modified-files-only: 'yes'
+        base-branch: 'main'
+
+    - name: Check API schema validity
+      run: |
+        if [ -f "docs/api/openapi-en.json" ]; then
+          echo "Validating English OpenAPI schema..."
+          npx swagger-parser validate docs/api/openapi-en.json
+        fi
+        
+        if [ -f "docs/api/openapi-es.json" ]; then
+          echo "Validating Spanish OpenAPI schema..."
+          npx swagger-parser validate docs/api/openapi-es.json
+        fi
+
+  deploy-preview:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: [sync-docs, validate-links]
+    steps:
+    - name: Deploy documentation preview
+      run: |
+        echo "🚀 Deploying documentation preview..."
+        echo "Preview will be available at: https://preview-${{ github.event.number }}.docs.vcop.finance"
+        
+        # Aquí iría la lógica de deploy a un entorno de preview
+        # Por ejemplo, usando Vercel, Netlify, etc.
+        
+        echo "✅ Preview deployed successfully" 

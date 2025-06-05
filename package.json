@@ -1,0 +1,54 @@
+{
+  "name": "vcop-protocol-docs",
+  "version": "2.0.0",
+  "description": "VCOP Protocol Documentation System",
+  "main": "scripts/generate-openapi.js",
+  "scripts": {
+    "docs:generate": "node scripts/generate-openapi.js",
+    "docs:validate": "swagger-parser validate docs/api/openapi-en.json && swagger-parser validate docs/api/openapi-es.json",
+    "docs:build": "npm run docs:generate && npm run docs:validate",
+    "docs:serve": "redoc-cli serve docs/api/openapi-en.json",
+    "docs:serve-es": "redoc-cli serve docs/api/openapi-es.json",
+    "docs:sync": "echo 'Documentation generated. Push to GitHub to sync with GitBook.'",
+    "docs:dev": "redoc-cli serve docs/api/openapi-en.json --port 3000",
+    "build": "forge build && npm run docs:build",
+    "test": "forge test",
+    "lint:docs": "markdownlint docs/**/*.md",
+    "format:docs": "prettier --write docs/**/*.md"
+  },
+  "keywords": [
+    "defi",
+    "lending",
+    "stablecoin",
+    "documentation",
+    "openapi",
+    "gitbook"
+  ],
+  "author": "VCOP Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@redocly/cli": "^1.10.0",
+    "markdownlint-cli": "^0.39.0",
+    "prettier": "^3.2.5",
+    "redoc-cli": "^0.13.21",
+    "swagger-parser": "^10.0.3",
+    "swagger-ui-dist": "^5.11.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "fs-extra": "^11.2.0",
+    "yaml": "^2.3.4"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vcop-protocol/vcop-docs"
+  },
+  "bugs": {
+    "url": "https://github.com/vcop-protocol/vcop-docs/issues"
+  },
+  "homepage": "https://docs.vcop.finance"
+} 
