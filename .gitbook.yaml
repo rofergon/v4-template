@@ -1,0 +1,64 @@
+root: ./docs
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md
+
+# Configuración multi-idioma
+languages:
+  en:
+    title: "VCOP Protocol Documentation"
+    path: ./docs/en
+  es:
+    title: "Documentación del Protocolo VCOP"
+    path: ./docs/es
+
+# Configuración OpenAPI
+api:
+  method: openapi
+  openapi:
+    # Configuración en inglés (por defecto)
+    en: ./docs/api/openapi-en.json
+    # Configuración en español
+    es: ./docs/api/openapi-es.json
+
+# Plugins habilitados
+plugins:
+  - search
+  - sharing
+  - expandable-chapters
+  - api-docs
+  - code-tabs
+  - hints
+
+# Configuración de la página
+page:
+  title: "VCOP Protocol Docs"
+  description: "Advanced DeFi Lending Protocol Documentation"
+  author: "VCOP Team"
+  direction: "ltr"
+
+# Variables globales
+variables:
+  protocol_name: "VCOP Protocol"
+  version: "2.0.0"
+  api_url: "https://api.vcop.finance/v2"
+  testnet_url: "https://testnet-api.vcop.finance/v2"
+  github_url: "https://github.com/vcop-protocol"
+
+# Configuración de formato
+format:
+  website:
+    cover: true
+    cover_small: false
+    
+# Configuración de PDF (opcional)
+pdf:
+  page_numbers: true
+  margin:
+    right: 62
+    left: 62
+    top: 56
+    bottom: 56
+  header_template: <p style='font-size:8px; color:#B3B3B3; margin-left:20px;'>_PAGENUM_</p>
+  footer_template: <p style='font-size:8px; color:#B3B3B3; text-align:center; width:100%;'>VCOP Protocol Documentation</p> 
